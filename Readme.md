@@ -2,6 +2,10 @@
 
 Учебный демо-проект от HTML Academy для 22 потока профессионального онлайн‑курса «JavaScript. Архитектура клиентских приложений».
 
+## Почитать
+Алгоритмы и структуры данных на JavaScript
+https://github.com/trekhleb/javascript-algorithms/blob/master/README.ru-RU.md
+
 ## Как пользоваться репозиторием
 
 Первый вариант, это изучать коммиты [в веб-интерфейсе GitHub в main-ветке потока](https://github.com/htmlacademy-ecmascript/taskmanager-22).
