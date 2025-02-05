@@ -14,5 +14,9 @@ function isTaskExpired(dueDate) {
   return dueDate && dayjs().isAfter(dueDate, 'D');
 }
 
-export {getRandomArrayElement, humanizeTaskDueDate, isTaskExpired};
+function isTaskRepeating(repeating) {
+  return Object.values(repeating).some(Boolean);
+}
+
+export {getRandomArrayElement, humanizeTaskDueDate, isTaskExpired, isTaskRepeating};
 
