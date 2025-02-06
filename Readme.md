@@ -6,6 +6,231 @@
 Алгоритмы и структуры данных на JavaScript
 https://github.com/trekhleb/javascript-algorithms/blob/master/README.ru-RU.md
 
+
+class GuitarPlayer {
+  #skill;
+  #guitarCount;
+
+  constructor(skill, guitarCount) {
+    this.#skill = skill;
+    this.#guitarCount = guitarCount;
+  }
+
+  static createJuniorGuitarPlayer() {
+    return new this(5, 2);
+  }
+
+  get skill() {
+    return {
+      skill: this.#skill,
+      guitarCount: this.#guitarCount,
+    };
+  }
+
+  set skill(value) {
+    this.#skill = value;
+  }
+}
+
+const noviceGuitarPlayer = GuitarPlayer.createJuniorGuitarPlayer();
+
+console.log(noviceGuitarPlayer);
+
+// Воспользуемся get
+console.log(noviceGuitarPlayer.skill);
+
+// Установим новое значение для уровня через set
+noviceGuitarPlayer.skill = 80;
+
+// Вновь получим значение
+console.log(noviceGuitarPlayer.skill);
+
+## Привязка контекса
+
+// Параметры будут переданы через call и apply
+const say = function(birthDate, guitarCount) {
+  return `Меня зовут: ${this.firstName} ${this.lastName}. Дата рождения: ${birthDate}. Гитар в коллекции: ${guitarCount}.`;
+};
+
+const guitarPlayer = {
+  firstName: 'Curt',
+  lastName: 'Cobain',
+};
+
+const anotherGuitarPlayer = {
+  firstName: 'Richie',
+  lastName: 'Sambora',
+};
+
+console.log(say.call(anotherGuitarPlayer, '20.02.1967', 19));
+console.log(say.apply(guitarPlayer, ['20.02.1967', 277]));
+
+в .call() аргументы нужно передавать через запятую (мнемоника comma, англ. «запятая»). Первым аргументом передаётся новый контекст, вторым и последующими — параметры функции.
+
+функция.call(новый_контекст, параметр_функции_1, параметр_функции_2, ...)
+в .apply() первым аргументом передаётся новый контекст, вторым — массив с параметрами функции (мнемоника array, англ. «массив»).
+
+функция.apply(новый_контекст, [параметр_функции_1, параметр_функции_2, ...])
+Результатом вызова методов .call() и .apply() будет новая функция с заданным контекстом.
+
+Самописный bind
+const bindContext = function (context, fn) {
+  return function (...args) {
+    return fn.call(context, ...args);
+  };
+};
+
+const bindContext = (context, fn) => (...args) => fn.call(context, ...args);
+
+Bind в JS
+
+class ButtonView {
+  constructor(element) {
+    this.element = element;
+    this.componentName = 'ButtonView';
+
+    this.onButtonClick = this.onButtonClick.bind(this);
+  }
+
+  setListeners() {
+    this.element.addEventListener('click', this.onButtonClick);
+  }
+
+  onButtonClick() {
+    console.log(this.componentName);
+  }
+}
+
+const buttonElement = document.querySelector('button');
+const buttonView = new ButtonView(buttonElement);
+buttonView.setListeners();
+
+Привязка через стрелочную функцию
+
+class ButtonView {
+  constructor(element) {
+    this.element = element;
+    this.componentName = 'ButtonView';
+
+    this.onButtonClick = this.onButtonClick.bind(this);
+  }
+
+  setListeners() {
+    this.element.addEventListener('click', this.onButtonClick);
+  }
+
+  onButtonClick() {
+    console.log(this.componentName);
+
+    this.element.removeEventListener('click', this.onButtonClick);
+  }
+}
+
+const buttonElement = document.querySelector('button');
+const buttonView = new ButtonView(buttonElement);
+buttonView.setListeners();
+
+##Классы 
+
+class GuitarPlayer {
+  // Объявляем приватные свойства
+  #firstName;
+  #lastName;
+
+  constructor(firstName, lastName) {
+    // Записываем в приватные свойства полученные значения
+    this.#firstName = firstName;
+    this.#lastName = lastName;
+  }
+
+  // Объявляем приватный метод
+  #createPhrase = () => {
+    return `My name is ${this.#firstName} ${this.#lastName}`;
+  }
+
+  sayMyName() {
+    console.log(this.#createPhrase());
+  }
+}
+
+const player = new GuitarPlayer('Richie', 'Sambora');
+
+player.sayMyName(); // Выведет в консоль 'My name is Richie Sambora'
+
+console.log(player.#createPhrase()); // Ошибка!
+
+
+## JSDoc
+
+/**
+ * Имя кота
+ * @type {string}
+ */
+const catName = 'Кекс';
+
+
+/**
+ * Функция, которая выводит в консоль имя и титул
+ * @param {string} myName Имя, которое будет напечатано
+ * @param {string} [title=''] Как к вам обращаться
+ * @param {boolean} [isCat] А кот ли ты?
+ */
+function printMyName(myName, title = '', isCat) {
+  if (isCat) {
+    // Ну, ок
+  }
+  console.log(`${title} ${myName}`);
+}
+
+printMyName('Кекс', 'Ваше котейшество');
+
+
+С помощью тега @returns можно описать и типизировать значение, которое возвращает функция.
+
+/**
+ * @param {string} firstString
+ * @param {string} secondString
+ * @returns {string} Сконкатенированные строки
+ */
+function concat(firstString, secondString) {
+  return firstString + secondString;
+}
+
+const NameWithTitle = concat('Ваше котейшество', 'Кекс');
+
+/**
+ * @const
+ */
+const PI = 3.14;
+
+/**
+ * @enum {string}
+ */
+const Method = {
+  GET: 'get',
+  POST: 'post',
+  PUT: 'put',
+  DELETE: 'delete',
+};
+
+/**
+ * @class
+ */
+class AbstractClass {
+  constructor() {
+    if (new.target === AbstractClass) {
+      throw new Error('Can\'t instantiate AbstractView, only concrete one.');
+    }
+  }
+
+  /**
+   * @abstract
+   */
+  doSomething() {
+    throw new Error('Abstract method not implemented: doSomething');
+  }
+}
+
 ## Как пользоваться репозиторием
 
 Первый вариант, это изучать коммиты [в веб-интерфейсе GitHub в main-ветке потока](https://github.com/htmlacademy-ecmascript/taskmanager-22).
