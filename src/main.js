@@ -1,8 +1,8 @@
+import {render} from './framework/render.js';
 import NewTaskButtonView from './view/new-task-button-view';
 import FilterView from './view/filter-view.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import TaskModel from './model/tasks-model.js';
-import { render } from './render';
 
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = siteMainElement.querySelector('.main__control');
