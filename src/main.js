@@ -7,7 +7,6 @@ import TaskModel from './model/tasks-model.js';
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = siteMainElement.querySelector('.main__control');
 const taskModel = new TaskModel();
-
 const boardPresenter = new BoardPresenter({
   boardContainer: siteMainElement,
   taskModel,

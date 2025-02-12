@@ -1,9 +1,9 @@
-import { getRandomArrayElement } from "../utils.js";
-import { COLORS } from "../const.js";
+import { getRandomArrayElement } from '../utils.js';
+import { COLORS } from '../const.js';
 
 const mockTasks = [
   {
-    description: "Сделать домашку",
+    description: 'Сделать домашку',
     dueDate: null,
     repeating: {
       mo: false,
@@ -19,7 +19,7 @@ const mockTasks = [
     isFavorite: true,
   },
   {
-    description: "Завести кота",
+    description: 'Завести кота',
     dueDate: null,
     repeating: {
       mo: false,
@@ -35,8 +35,8 @@ const mockTasks = [
     isFavorite: false,
   },
   {
-    description: "Купить доллары",
-    dueDate: new Date("2014-01-01"),
+    description: 'Купить доллары',
+    dueDate: new Date('2014-01-01'),
     repeating: {
       mo: false,
       tu: false,
@@ -51,8 +51,8 @@ const mockTasks = [
     isFavorite: false,
   },
   {
-    description: "Пройти интенсив на соточку",
-    dueDate: new Date("2023-06-26"),
+    description: 'Пройти интенсив на соточку',
+    dueDate: new Date('2023-06-26'),
     repeating: {
       mo: false,
       tu: false,
