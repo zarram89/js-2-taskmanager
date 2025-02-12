@@ -1,15 +1,15 @@
 import {render} from './framework/render.js';
-import NewTaskButtonView from './view/new-task-button-view';
+import NewTaskButtonView from './view/new-task-button-view.js';
 import FilterView from './view/filter-view.js';
 import BoardPresenter from './presenter/board-presenter.js';
-import TaskModel from './model/tasks-model.js';
+import TasksModel from './model/tasks-model.js';
 
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = siteMainElement.querySelector('.main__control');
-const taskModel = new TaskModel();
+const tasksModel = new TasksModel();
 const boardPresenter = new BoardPresenter({
   boardContainer: siteMainElement,
-  taskModel,
+  tasksModel,
 });
 
 render(new NewTaskButtonView(), siteHeaderElement);
