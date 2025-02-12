@@ -3,10 +3,10 @@
 Учебный демо-проект от HTML Academy для 22 потока профессионального онлайн‑курса «JavaScript. Архитектура клиентских приложений».
 
 ## Почитать
-Алгоритмы и структуры данных на JavaScript
-https://github.com/trekhleb/javascript-algorithms/blob/master/README.ru-RU.md
+[Алгоритмы и структуры данных на JavaScript]
+(https://github.com/trekhleb/javascript-algorithms/blob/master/README.ru-RU.md)
 
-
+```js
 class GuitarPlayer {
   #skill;
   #guitarCount;
@@ -44,9 +44,10 @@ noviceGuitarPlayer.skill = 80;
 
 // Вновь получим значение
 console.log(noviceGuitarPlayer.skill);
+```
 
 ## Привязка контекса
-
+```js
 // Параметры будут переданы через call и apply
 const say = function(birthDate, guitarCount) {
   return `Меня зовут: ${this.firstName} ${this.lastName}. Дата рождения: ${birthDate}. Гитар в коллекции: ${guitarCount}.`;
@@ -64,8 +65,8 @@ const anotherGuitarPlayer = {
 
 console.log(say.call(anotherGuitarPlayer, '20.02.1967', 19));
 console.log(say.apply(guitarPlayer, ['20.02.1967', 277]));
-
-в .call() аргументы нужно передавать через запятую (мнемоника comma, англ. «запятая»). Первым аргументом передаётся новый контекст, вторым и последующими — параметры функции.
+```
+в `.call()` аргументы нужно передавать через запятую (мнемоника comma, англ. «запятая»). Первым аргументом передаётся новый контекст, вторым и последующими — параметры функции.
 
 функция.call(новый_контекст, параметр_функции_1, параметр_функции_2, ...)
 в .apply() первым аргументом передаётся новый контекст, вторым — массив с параметрами функции (мнемоника array, англ. «массив»).
@@ -74,6 +75,7 @@ console.log(say.apply(guitarPlayer, ['20.02.1967', 277]));
 Результатом вызова методов .call() и .apply() будет новая функция с заданным контекстом.
 
 Самописный bind
+```js
 const bindContext = function (context, fn) {
   return function (...args) {
     return fn.call(context, ...args);
@@ -81,9 +83,9 @@ const bindContext = function (context, fn) {
 };
 
 const bindContext = (context, fn) => (...args) => fn.call(context, ...args);
-
-Bind в JS
-
+```
+### Bind в JS
+```js
 class ButtonView {
   constructor(element) {
     this.element = element;
@@ -104,22 +106,26 @@ class ButtonView {
 const buttonElement = document.querySelector('button');
 const buttonView = new ButtonView(buttonElement);
 buttonView.setListeners();
+```
+### Привязка через стрелочную функцию
 
-Привязка через стрелочную функцию
+у стрелочных функций нет своего контекста, они запоминают контекст места, где были объявлены.
+
+И если стрелочную функцию объявить в классе, записав в свойство, мы «заставим» её запомнить контекст объявление — наш класс.
+```js
+'use strict';
 
 class ButtonView {
   constructor(element) {
     this.element = element;
     this.componentName = 'ButtonView';
-
-    this.onButtonClick = this.onButtonClick.bind(this);
   }
 
   setListeners() {
     this.element.addEventListener('click', this.onButtonClick);
   }
 
-  onButtonClick() {
+  onButtonClick = () => {
     console.log(this.componentName);
 
     this.element.removeEventListener('click', this.onButtonClick);
@@ -129,9 +135,9 @@ class ButtonView {
 const buttonElement = document.querySelector('button');
 const buttonView = new ButtonView(buttonElement);
 buttonView.setListeners();
-
-##Классы 
-
+```
+## Классы 
+```js
 class GuitarPlayer {
   // Объявляем приватные свойства
   #firstName;
@@ -158,7 +164,7 @@ const player = new GuitarPlayer('Richie', 'Sambora');
 player.sayMyName(); // Выведет в консоль 'My name is Richie Sambora'
 
 console.log(player.#createPhrase()); // Ошибка!
-
+```
 
 ## JSDoc
 
